@@ -1,0 +1,1 @@
+word = input().upper()max_count = 0max_chr = 0for i in range(65, 65 + 26):    count = word.count(chr(i))    if max_count < count:        max_count = count        max_chr = chr(i)        flag = 0    elif max_count == count:        flag = 1if flag == 1:    print('?')else:    print(max_chr)
