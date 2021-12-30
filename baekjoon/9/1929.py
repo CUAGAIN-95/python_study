@@ -1,18 +1,11 @@
-def is_prime(num):
-    if num < 2:
-        return False
-    for index in range(2, int(num ** 0.5) + 1):
-        if num % index == 0:
-            return False
-    return True
+m, n = map(int, input().split())
 
+prime = [True] * (n + 1)
+for i in range(2, int(n ** 0.5) + 1):
+    if prime[i]:
+        for j in range(2 * i, n + 1, i):
+            prime[j] = False
 
-M, N = map(int, input().split())
-
-nums = list(map(int, range(M, N + 1)))
-
-print(nums)
-for i in nums:
-    if not is_prime(i):
-        continue
-    print(i)
+for i in range(m, n + 1):
+    if i > 1 and prime[i]:
+        print(i)
