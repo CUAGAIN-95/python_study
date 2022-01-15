@@ -38,3 +38,5 @@ for i in range(M - 7):
 
 
 print(min_check)
+
+
