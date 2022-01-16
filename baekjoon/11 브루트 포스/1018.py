@@ -35,8 +35,4 @@ for i in range(M - 7):
         if min_check == -1 or min_check > count:
             min_check = count
 
-
-
 print(min_check)
-
-
