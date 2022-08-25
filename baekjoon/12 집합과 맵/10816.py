@@ -32,13 +32,30 @@
 # for i in ml:
 #     print(upper_bound(nl, i) - lower_bound(nl, i), end=' ')
 
+###############
+
+# import sys
+# import bisect
+
+# n = int(sys.stdin.readline())
+# nl = list(map(int, sys.stdin.readline().split()))
+# m = int(sys.stdin.readline())
+# ml = list(map(int, sys.stdin.readline().split()))
+# nl.sort()
+# for i in ml:
+#     print(bisect.bisect_right(nl, i) - bisect.bisect_left(nl, i), end=' ')
+
 import sys
-import bisect
+from collections import Counter
 
 n = int(sys.stdin.readline())
 nl = list(map(int, sys.stdin.readline().split()))
 m = int(sys.stdin.readline())
 ml = list(map(int, sys.stdin.readline().split()))
-nl.sort()
+c = Counter(nl)
+
 for i in ml:
-    print(bisect.bisect_right(nl, i) - bisect.bisect_left(nl, i), end=' ')
+    if i in c:
+        print(c[i], end=' ')
+    else:
+        print(0, end=' ')
