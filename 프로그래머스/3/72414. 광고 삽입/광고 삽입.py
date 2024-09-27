@@ -24,42 +24,28 @@ def seconds_to_time(seconds):
 
     return time
 
-
-
 def solution(play_time, adv_time, logs):
-    if play_time == adv_time:
-        return "00:00:00"
-    
+
     play_seconds = time_to_seconds(play_time)
-    adv_seconds = time_to_seconds(adv_time)
-
-    # Create an array to count viewers for each second
-    viewer_count = [0] * (play_seconds + 1)
-
-    # Process logs to populate the viewer_count
+    play_list = [0] * (play_seconds + 1)
+    
     for log in logs:
-        start, end = map(time_to_seconds, log.split("-"))
-        viewer_count[start] += 1
-        if end <= play_seconds:  # Prevent index out of bounds
-            viewer_count[end] -= 1
+        start, end = map(time_to_seconds, log.split('-'))
+        play_list[start] += 1
+        play_list[end] -= 1
 
-    # Calculate the cumulative sum of viewers
     for i in range(1, play_seconds + 1):
-        viewer_count[i] += viewer_count[i - 1]
-
-    # Sliding window to find the best start time for the advertisement
-    max_viewers = sum(viewer_count[:adv_seconds])
-    max_start_time = 0
-    current_viewers = max_viewers
-
-    for start_time in range(1, play_seconds - adv_seconds + 1):
-        current_viewers += viewer_count[start_time + adv_seconds - 1] - viewer_count[start_time - 1]
-        
-        if current_viewers > max_viewers:
-            max_viewers = current_viewers
-            max_start_time = start_time
-        elif current_viewers == max_viewers and start_time < max_start_time:
-            max_start_time = start_time
+        play_list[i] = play_list[i] + play_list[i - 1]
     
-    return seconds_to_time(max_start_time)
-    
+    adv_seconds = time_to_seconds(adv_time)
+    max_time = sum(play_list[:adv_seconds])
+    current_time = max_time
+    start_time = 0
+    for i in range(1, play_seconds - adv_seconds + 1):
+        current_time = play_list[i + adv_seconds - 1] - play_list[i - 1] + current_time 
+        if current_time > max_time:
+            max_time = current_time
+            start_time = i
+
+    answer = seconds_to_time(start_time)
+    return answer
