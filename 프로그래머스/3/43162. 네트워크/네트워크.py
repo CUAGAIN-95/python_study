@@ -4,6 +4,7 @@ def bfs(graph, start_v):
     visited = [start_v]
     queue = deque()
     queue.append(start_v)
+    
     while queue:
         cur_v = queue.popleft()
         for v in graph[cur_v]:
@@ -11,10 +12,6 @@ def bfs(graph, start_v):
                 visited.append(v)
                 queue.append(v)
     return visited
-
-
-    
-    # return len(network)
 
 def solution(n, computers):
     graph = {}
