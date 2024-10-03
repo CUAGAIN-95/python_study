@@ -4,7 +4,7 @@ def solution(maps):
     shortest_dist = -1
     row_len = len(maps)
     col_len = len(maps[0])
-    if maps[0][0] == 0 and maps[row_len -1][col_len - 1] == 0:
+    if maps[0][0] == 0 or maps[row_len - 1][col_len - 1] == 0:
         return shortest_dist
     
     visited = [[False] * col_len for _ in range(row_len)]
@@ -13,7 +13,6 @@ def solution(maps):
     queue = deque()
     queue.append((0, 0, 1))
     visited[0][0] = True
-    
     while queue:
         cur_r, cur_c, cur_dist = queue.popleft()
         if cur_r == row_len - 1 and cur_c == col_len - 1:
@@ -29,4 +28,3 @@ def solution(maps):
                         visited[next_r][next_c] = True
     answer = shortest_dist
     return answer
-    
